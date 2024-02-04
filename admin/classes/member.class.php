@@ -1,25 +1,23 @@
 <?php 
 include_once "connexion.class.php";
-class membre{
+class member{
     //data 
     public $Nom_complet;
     public $Cin;
     public $Adress;
-    public $Datenaissance;
+    public $Date_naissance;
     public $Tel; 
     public $Genre;
-    public $Date_inscription;
     
     //methodes
     //
-    function __construct($Nom_complet,$Cin,$Adress,$Datenaissance,$Tel,$Genre,$Date_inscription) { 
+    function __construct($Nom_complet,$Cin,$Adress,$Date_naissance,$Tel,$Genre) { 
        $this->Nom_complet=$Nom_complet;
        $this->Cin=$Cin;
        $this->Adress=$Adress;
-       $this->Datenaissance=$Datenaissance;
+       $this->Date_naissance=$Date_naissance;
        $this->Tel=$Tel;
        $this->Genre=$Genre;
-       $this->Date_inscription=$Date_inscription;
     }
     
     //une methode pour  ajouter un employe dans la bd : 
@@ -28,9 +26,12 @@ class membre{
            //connection db
            $cnx= connexion::connecter_db();
            //preparer une requete SQL 
-          $rp= $cnx->prepare("insert into membre(Nom_complet, Cin, Adress, Datenaissance, Tel, Genre, date_inscription) values(?,?,?,?,?,?,?)"); //
+          $rp= $cnx->prepare("insert into member(Nom_complet, Cin, Adress, Date_naissance, Tel, Genre) values(?,?,?,?,?,?)"); //
            //execution
-       $rp->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Datenaissance,$this->Tel,$this->Genre,$this->Date_inscription]);
+       $rp->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Date_naissance,$this->Tel,$this->Genre]);
+      
+
+       
     } catch (\Throwable $th) {
         echo "Erreur d'ajout d'un membre ".$th->getMessage();
     }
@@ -42,9 +43,9 @@ class membre{
            //connection db
            $cnx= connexion::connecter_db();
            //preparer une requete SQL 
-          $rp= $cnx->prepare("update membre set Nom_complet=?,Cin=?, Adress=?, Datenaissance=?, Tel=?, Genre=?, date_inscription=? where id=?");
+          $rp= $cnx->prepare("update member set Nom_complet=?,Cin=?, Adress=?, Date_naissance=?, Tel=?, Genre=? where id=?");
            //execution
-       $rp->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Datenaissance,$this->Tel,$this->Genre,$this->Date_inscription,$id]);
+       $rp->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Date_naissance,$this->Tel,$this->Genre,$id]);
     } catch (\Throwable $th) {
         echo "Erreur de modification d'un employe ".$th->getMessage();
     }
@@ -63,7 +64,7 @@ class coach{
     public $Nom_complet;
     public $Cin;
     public $Adress;
-    public $Datenaissance;
+    public $Date_naissance;
     public $Tel;
 
 
