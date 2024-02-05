@@ -13,6 +13,7 @@ class connexion{
   {
       try {
           $cnx = new PDO('mysql:host=localhost;dbname=lifestylebd', "root", "");
+
           return $cnx;
       } catch (\Throwable $th) {
           echo "Erreur de connexion base de donnees ";
@@ -32,6 +33,36 @@ public    function supprimer($id,$table)
         echo "Erreur de suppression d'un employe " . $th->getMessage();
     }
 }
+public static function count_genre() {
+    try {
+        $cnx = self::connecter_db();
+        $rp = $cnx->query("SELECT genre, COUNT(*) AS nombre_genre FROM member GROUP BY genre");
+        return $rp->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return null;
+    }
+}
+public static function number_subscription() {
+    try {
+        $cnx = self::connecter_db();
+        $rp = $cnx->query("SELECT
+        YEAR(date_inscription) AS subscription_year,
+        MONTHNAME(date_inscription) AS subscription_month,
+        COUNT(*) AS number_of_subscriptions
+    FROM
+        subscription
+    GROUP BY
+        subscription_year, subscription_month
+    ORDER BY
+        subscription_year DESC, subscription_month DESC;");
+        return $rp->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return null;
+    }
+}
+
 public static function find($id,$table) {
     try {
     $cnx= connexion::connecter_db();

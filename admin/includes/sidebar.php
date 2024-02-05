@@ -23,7 +23,7 @@
         
     
     <li class="nav-item">
-<a class="nav-link text-white " href="./dashboard.html">
+<a class="nav-link text-white " href="./Dashboard.php">
   
   <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
       <i class="material-icons opacity-10">dashboard</i>
@@ -33,13 +33,13 @@
   </a>
 </li>
     <li class="nav-item">
-<a class="nav-link text-white " href="./dashboard.html">
+<a class="nav-link text-white " href="./add_member.php">
   
   <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
       <i class="material-icons opacity-10">dashboard</i>
     </div>
     
-    <span class="nav-link-text ms-1">Gestion membre</span>
+    <span class="nav-link-text ms-1">Ajouter member</span>
   </a>
 </li>
 
@@ -54,7 +54,7 @@
   </a>
 </div>
 <li class="nav-item">
-  <a class="nav-link text-white " href="./table_membre.php">
+  <a class="nav-link text-white " href="./table_member.php">
     
     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
       <i class="material-icons opacity-10">table_view</i>

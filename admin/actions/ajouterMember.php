@@ -9,6 +9,8 @@ extract($_POST);
 $member = new member($Nom_complet,$Cin,$Adress,$Date_naissance,$Tel,$Genre);
 
 $member->AjouterMembre();
+
+
 $subcribtion = new subcribtion($Date_inscription,$Durée_mois);
 $subcribtion->Ajoutersubscription();
 

@@ -22,7 +22,7 @@ include_once "includes/header.php";
             <div class="card-body bg-light">
        
             <div class = "container" >
-             <form id="contact-form"  action="actions/ajouterMembre.php" method="post" role="form">
+             <form id="contact-form"  action="actions/ajouterMember.php" method="post" role="form">
 
             
 

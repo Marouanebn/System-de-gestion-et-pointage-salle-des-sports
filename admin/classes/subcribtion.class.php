@@ -6,11 +6,12 @@ class subcribtion{
     //data 
     public $Date_inscription;
     public $Durée_mois;
+   
 
     
     //methodes
     //
-    function __construct($Date_inscription,$Durée_mois) { 
+    function __construct($Date_inscription,$Durée_mois,) { 
      
        $this->Date_inscription=$Date_inscription;
        $this->Durée_mois=$Durée_mois;
@@ -22,13 +23,12 @@ class subcribtion{
         try {
             //connection db
             $cnx = connexion::connecter_db();
-            $member_id = $cnx->lastInsertId();
-
-            
+            // $member_id = $cnx->lastInsertId();
             //preparer une requete SQL 
-            $rp = $cnx->prepare("INSERT INTO subscription(Date_inscription, Durée_mois,Member_id) VALUES (?,?, ?)");
+            $rp = $cnx->prepare("INSERT INTO subscription(Date_inscription, Durée_mois) VALUES (?,?)");
+    
             //execution
-            $rp->execute([ $this->Date_inscription, $this->Durée_mois,$member_id]);
+            $rp->execute([$this->Date_inscription, $this->Durée_mois]);
         } catch (\Throwable $th) {
             echo "Erreur d'ajout d'un subscription " . $th->getMessage();
         }
