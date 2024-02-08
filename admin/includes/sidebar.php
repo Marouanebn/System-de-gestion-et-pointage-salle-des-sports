@@ -36,10 +36,22 @@
 <a class="nav-link text-white " href="./add_member.php">
   
   <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-      <i class="material-icons opacity-10">dashboard</i>
-    </div>
+  <span class="material-icons">
+person_add
+</span>    </div>
     
     <span class="nav-link-text ms-1">Ajouter member</span>
+  </a>
+</li>
+    <li class="nav-item">
+<a class="nav-link text-white " href="./add_member.php">
+  
+  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+  <span class="material-icons">
+currency_exchange
+</span>    </div>
+    
+    <span class="nav-link-text ms-1">Ajouter Payment</span>
   </a>
 </li>
 
@@ -57,8 +69,9 @@
   <a class="nav-link text-white " href="./table_member.php">
     
     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-      <i class="material-icons opacity-10">table_view</i>
-    </div>
+    <span class="material-icons">
+manage_search
+</span>    </div>
   
     <span class="nav-link-text ms-1">membres</span>
   </a>  
@@ -73,6 +86,18 @@
     </div>  
   
     <span class="nav-link-text ms-1">Notifications</span>
+</a>    
+</li>
+
+<li class="nav-item">
+<a class="nav-link text-white " href="./notifications.html">
+  
+    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+    <span class="material-icons">
+history
+</span>    </div>  
+  
+    <span class="nav-link-text ms-1">Historique</span>
 </a>    
 </li>
 

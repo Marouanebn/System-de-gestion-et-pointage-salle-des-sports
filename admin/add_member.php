@@ -98,16 +98,16 @@ include_once "includes/header.php";
                             
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        
-                        <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                            " value="Ajouter" >
                     
                 </div>
-          
-                </div>
-
-
+                
+                
+            </div>
+            <div class="col-md-3 " >
+                
+                <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
+                    " value="Ajouter" >
+            
         </div>
          </form>
         </div>

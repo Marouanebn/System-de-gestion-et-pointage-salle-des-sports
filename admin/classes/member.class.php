@@ -22,20 +22,19 @@ class member{
     
     //une methode pour  ajouter un employe dans la bd : 
     public function AjouterMembre() {
-    try {
+        try {
            //connection db
            $cnx= connexion::connecter_db();
            //preparer une requete SQL 
-          $rp= $cnx->prepare("insert into member(Nom_complet, Cin, Adress, Date_naissance, Tel, Genre) values(?,?,?,?,?,?)"); //
+           $rp= $cnx->prepare("insert into member(Nom_complet, Cin, Adress, Date_naissance, Tel, Genre) values(?,?,?,?,?,?)");
            //execution
-       $rp->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Date_naissance,$this->Tel,$this->Genre]);
-      
-
-       
-    } catch (\Throwable $th) {
-        echo "Erreur d'ajout d'un membre ".$th->getMessage();
-    }
-    
+           $rp->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Date_naissance,$this->Tel,$this->Genre]);
+           
+           // Return the ID of the newly inserted member
+           return $cnx->lastInsertId();
+        } catch (\Throwable $th) {
+            echo "Erreur d'ajout d'un membre ".$th->getMessage();
+        }
     }
     //une methode pour  ajouter un employe dans la bd : 
     public function ModifierMembre($id) {

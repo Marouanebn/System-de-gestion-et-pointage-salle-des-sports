@@ -5,11 +5,7 @@ class connexion{
 
 
  
-
-
-
-
-  public   static function connecter_db()
+public   static function connecter_db()
   {
       try {
           $cnx = new PDO('mysql:host=localhost;dbname=lifestylebd', "root", "");

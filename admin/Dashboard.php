@@ -81,12 +81,13 @@ foreach ($rpgenre as $data) {
 <script id="subscription-analyse">
   const ctj = document.getElementById('myChartsubsciption');
 
-  const labels = <?php echo json_encode($mois)?>;
+  const labels = <?php echo json_encode($mois);?>;
 const datasub = {
   labels: labels,
   datasets: [{
    
-    label: <?php echo json_encode($mois[0])?>,
+    label:<?php echo json_encode($mois[0]);?>,
+      
     
     data: <?php echo json_encode($total)?>,
     backgroundColor: [
@@ -107,8 +108,9 @@ const datasub = {
       'rgb(153, 102, 255)',
       'rgb(201, 203, 207)'
     ],
-    borderWidth: 1
-  }]
+    borderWidth: 2
+  },
+]
 };
 
   const configsub = {
@@ -120,6 +122,7 @@ const datasub = {
         beginAtZero: true
       }
     }
+    
   },
 };
 
