@@ -1,56 +1,139 @@
 <?php 
-include_once"includes/header.php";
 include_once"classes/connexion.class.php";
+include_once "classes/subcribtion.class.php";
+include_once"classes/payment.class.php";
+include_once"classes/member.class.php";
+
 
 $rpgenre= connexion::count_genre();       
-   
-$rpmois= connexion::number_subscription();    
 foreach ($rpgenre as $data) {
-    $Genre[]=$data['genre'];
-    $number[]=$data['nombre_genre'];
-   
-} foreach ($rpmois as  $data) {
+  $Genre[]=$data['genre'];
+  $number[]=$data['nombre_genre'];
+  
+} 
+$rpmois= subcribtion::number_subscription();    
+
+foreach ($rpmois as  $data) {
+  $year []= $data['subscription_year'];
   $mois[]=$data['subscription_month'];
-    $total[]=$data['number_of_subscriptions'];
+  $total[]=$data['number_of_subscriptions'];
 }
+$rpmontant = Payment::CalculerMontantParMois();
+
+$totalMember = connexion::totalMemberActive();
+// print_r($totalMember);
+
+include_once"includes/sidebar.php";
 ?>
+<style>
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}</style>
+
 <div class="container text-center">
-  <div class="row">
-    <div class="col-6">
-    <div style="width: 300px;">
-<p class="text-center">Gneder</p>
+
+  <div class="container pb-5 " style="margin-top: 8rem!important;">
+    <div class="row justify-content-evenly">
+        <div class="col-md-4 col-xl-3 ">
+            <div class="card bg-c-blue order-card " >
+              <?php  foreach ($totalMember  as $TotalMember) {
+                
+              ?>
+                <div class="card-block">
+                    <h6 class="m-b-20">Total member active</h6>
+                    <h2 class="text-right"><i class='bx bx-user-check f-left'></i><span><?=  $TotalMember['TotalPayee']?></span></h2>
+                </div>
+            </div>
+            <?php }?>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">total member inactive</h6>
+                    <h2 class="text-right"><i class='bx bx-user-x f-left' ></i><span><?=$TotalMember['TotalNonPayee']?></span></h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+           
+                    <?php 
+foreach ($rpmontant as $data) {?>
+  
+
+
+
+                <div class="card-block">
+                    <h6 class="m-b-20">total montant en <?= $data['mois']?></h6>
+                    <h2 class="text-right"><i class='bx bx-dollar-circle' style='color:#ffffff f-left'  ></i><span> <?php ?><?= $data['Montant'] ;}?> DH</span></h2>
+                </div>
+            </div>
+        </div>
+        
+      
+	</div>
+</div>
+<div class="row mt-4 justify-content-evenly align-items-center">
+    
+    <div class="col-lg-4 col-sm-12">
+    <div style="width: 100%;">
+<p class="text-center">Analyse Gender</p>
 
   <canvas id="myChartgenre" ></canvas>
 </div>
 
     </div>
-    <div class="col-6">
-    <div style="width: 500px; height: 500px;">
-<p class="text-center">mois</p>
+    <div class="col-lg-5 col-sm-12">
+    <div style="width: 100%; ">
+<p class="text-center">Analyse des subscription</p>
 
   <canvas id="myChartsubsciption" ></canvas>
 </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      1 of 3
-    </div>
-    <div class="col">
-      2 of 3
-    </div>
-    <div class="col">
-      3 of 3
     </div>
   </div>
 </div>
@@ -65,7 +148,7 @@ foreach ($rpgenre as $data) {
     datasets: [{
       label: 'My First Dataset',
       data:<?php echo json_encode($number)?> ,
-      backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
+      backgroundColor: [ 'rgb(54, 162, 235)', 'rgb(255, 99, 132)','rgb(255, 205, 86)'],
       hoverOffset: 4
     }]
   };
@@ -81,7 +164,7 @@ foreach ($rpgenre as $data) {
 <script id="subscription-analyse">
   const ctj = document.getElementById('myChartsubsciption');
 
-  const labels = <?php echo json_encode($mois);?>;
+  const labels = <?php echo json_encode($mois);json_encode($mois);?>;
 const datasub = {
   labels: labels,
   datasets: [{
@@ -89,7 +172,7 @@ const datasub = {
     label:<?php echo json_encode($mois[0]);?>,
       
     
-    data: <?php echo json_encode($total)?>,
+    data: <?php echo json_encode($total);?>,
     backgroundColor: [
       'rgba(255, 99, 132, 0.2)',
       'rgba(255, 159, 64, 0.2)',

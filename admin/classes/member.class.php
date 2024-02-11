@@ -51,26 +51,25 @@ class member{
     
     }
    
+    static public function getmember($Nom_complet=""){
+        try {
+            $cnx = connexion::connecter_db();
+            $rp = $cnx->prepare("select m.* from member   where Nom_complet like ? 
+
+            ");
+            $rp->execute(["%$Nom_complet%","%$Nom_complet%"]);
+            return $rp->fetchAll();
+        } catch (\Throwable $th) {
+            echo "Erreur recherche avec leurs departements " . $th->getMessage();
+        }
+    }
    
+}
     
        
     
     
-}
 
-class coach{
-
-    public $Nom_complet;
-    public $Cin;
-    public $Adress;
-    public $Date_naissance;
-    public $Tel;
-
-
-
-
-
-}
 
 
 

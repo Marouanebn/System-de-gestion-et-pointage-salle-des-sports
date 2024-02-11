@@ -39,25 +39,7 @@ public static function count_genre() {
         return null;
     }
 }
-public static function number_subscription() {
-    try {
-        $cnx = self::connecter_db();
-        $rp = $cnx->query("SELECT
-        YEAR(date_inscription) AS subscription_year,
-        MONTHNAME(date_inscription) AS subscription_month,
-        COUNT(*) AS number_of_subscriptions
-    FROM
-        subscription
-    GROUP BY
-        subscription_year, subscription_month
-    ORDER BY
-        subscription_year DESC, subscription_month DESC;");
-        return $rp->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-        return null;
-    }
-}
+
 
 public static function find($id,$table) {
     try {
@@ -86,8 +68,22 @@ public static function find($id,$table) {
         
         }
         
-    
+    static function totalMemberActive(){
 
-}
+        try {
+            $cnx= connexion::connecter_db();
+               $rp= $cnx->prepare("SELECT COUNT(DISTINCT CASE WHEN p.STATUS = 'payeé' THEN m.Member_id END) as TotalPayee, COUNT(DISTINCT CASE WHEN p.STATUS = 'non payée' THEN m.Member_id END) as TotalNonPayee FROM member m JOIN subscription s ON m.Member_id = s.Member_id JOIN payment p ON s.Subscription_id = p.Subscribtion_id;");
+               $rp->execute();
+               $resultat=$rp->fetchAll();
+               return $resultat;
+        
+            } catch (\Throwable $th) {
+                echo "Erreur de selection des membres ".$th->getMessage();
+            }
+            
+            }
+    }
+
+
 
 ?>

@@ -1,13 +1,41 @@
 <?php 
-include_once"includes/header.php";
-include_once "classes/connexion.class.php";
+include_once"includes/sidebar.php";
+include_once "classes/Member.class.php";
 $membres= connexion::all("member");
+if(isset($_GET['Nom_complet'])){
+  $Nom_complet = $_GET["Nom_complet"];
+}else $motCle="";
+$Nom_complet=member::getmember($Nom_complet);
+// print_r($membres);
+                
 // print_r($membres);
 ?>
 
-<table  id="datatable"class="table table-striped-columns" style="width:100%">
-<thead>
-    <tr>
+
+  <main>
+            
+            <!--MDB Tables-->
+            <div class="container mt-4">
+    
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <!-- Grid row -->
+                        <div class="row">
+                            <!-- Grid column -->
+                            <div class="col-md-12">
+                                <div class="input-group md-form form-sm form-2 pl-0">
+                                <form action="table_member.php" method="get" class="text-center" >
+
+<input value="<?=$Nom_complet ?>" type="search" name="Nom_complet" id="" placeholder="Rechercher"> <button>Ok</button>
+</form>                                  </div>
+                            </div>
+                            <!-- Grid column -->
+                        </div>
+                        <!-- Grid row -->
+                        <!--Table-->
+                        <table class="table table-striped">
+                            <!--Table head-->
+                            <tr>
       <th scope="col">id</th>
       <th scope="col">nom complet</th>
       <th scope="col">cin</th>
@@ -37,7 +65,21 @@ $membres= connexion::all("member");
     <tr>
 
         <?php }?>
-  </tbody></table>
+  </tbody>
+                            <!--Table body-->
+                        </table>
+                        <!--Table-->
+                    </div>
+                </div>
+              
+                  
+            </div>
+            <!--MDB Tables-->
+          
+        </main>
+        <!DOCTYPE html>
+<html lang="en">
+
 <?php 
-include_once"includes/footer.php";
+// include_once"includes/footer.php";
 ?>

@@ -1,6 +1,12 @@
 <?php 
 
-include_once "includes/header.php";
+include_once"includes/sidebar.php";
+include_once 'classes/connexion.class.php';
+include_once 'classes/member.class.php';
+include_once 'classes/subcribtion.class.php';
+include_once 'classes/payment.class.php';
+
+
 
 
 ?>

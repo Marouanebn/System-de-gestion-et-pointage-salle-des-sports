@@ -41,7 +41,25 @@ class subcribtion{
     }
     
     }
-   
+    public static function number_subscription() {
+        try {
+            $cnx = connexion::connecter_db();
+            $rp = $cnx->query("SELECT
+            YEAR(date_inscription) AS subscription_year,
+            MONTHNAME(date_inscription) AS subscription_month,
+            COUNT(*) AS number_of_subscriptions
+        FROM
+            subscription
+        GROUP BY
+            subscription_year, subscription_month
+        ORDER BY
+            subscription_year DESC, subscription_month desc;");
+            return $rp->fetchAll(PDO::FETCH_BOTH);
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return null;
+        }
+    }
    
     
        
