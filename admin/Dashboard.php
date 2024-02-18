@@ -29,6 +29,11 @@ include_once"includes/sidebar.php";
 .order-card {
     color: #fff;
 }
+@media screen and (max-width: 768px) {
+    #fixv{
+        visibility: hidden;
+    }
+}
 
 .bg-c-blue {
     background: linear-gradient(45deg,#4099ff,#73b4ff);
@@ -83,7 +88,7 @@ include_once"includes/sidebar.php";
                 
               ?>
                 <div class="card-block">
-                    <h6 class="m-b-20">Total member active</h6>
+                    <h6 class="m-b-20">Nombre total de membres actifs</h6>
                     <h2 class="text-right"><i class='bx bx-user-check f-left'></i><span><?=  $TotalMember['TotalPayee']?></span></h2>
                 </div>
             </div>
@@ -93,7 +98,7 @@ include_once"includes/sidebar.php";
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-green order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">total member inactive</h6>
+                    <h6 class="m-b-20">nombre total de membres inactifs</h6>
                     <h2 class="text-right"><i class='bx bx-user-x f-left' ></i><span><?=$TotalMember['TotalNonPayee']?></span></h2>
                 </div>
             </div>
@@ -109,7 +114,7 @@ foreach ($rpmontant as $data) {?>
 
 
                 <div class="card-block">
-                    <h6 class="m-b-20">total montant en <?= $data['mois']?></h6>
+                    <h6 class="m-b-20">montant total en <?= $data['mois']?></h6>
                     <h2 class="text-right"><i class='bx bx-dollar-circle' style='color:#ffffff f-left'  ></i><span> <?php ?><?= $data['Montant'] ;}?> DH</span></h2>
                 </div>
             </div>
@@ -122,13 +127,13 @@ foreach ($rpmontant as $data) {?>
     
     <div class="col-lg-4 col-sm-12">
     <div style="width: 100%;">
-<p class="text-center">Analyse Gender</p>
+<p class="text-center">Analyser du genre</p>
 
   <canvas id="myChartgenre" ></canvas>
 </div>
 
     </div>
-    <div class="col-lg-5 col-sm-12">
+    <div class="col-lg-5 col-sm-12"  id="fixv">
     <div style="width: 100%; ">
 <p class="text-center">Analyse des subscription</p>
 

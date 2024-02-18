@@ -8,130 +8,140 @@ include_once 'classes/payment.class.php';
 
 
 
+function GetLastMember()
+{
+    try {
+        $cnx = connexion::connecter_db();
+        $rp = $cnx->prepare("SELECT Nom_complet FROM member ORDER BY Member_id DESC LIMIT 1");
+        $rp->execute();
+        $resultat = $rp->fetchColumn();
+        return $resultat !== false ? $resultat : null;
+    } catch (\Throwable $th) {
+        return "Erreur de selection des membres " . $th->getMessage();
+    }
+}
 
 ?>
 
+<style>body {
+    font-family: 'Lato', sans-serif;
+}
 
+h1 {
+    margin-bottom: 40px;
+}
 
+label {
+    color: #333;
+}
+
+.btn-send {
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    width: 80%;
+    margin-left: 3px;
+    }
+.help-block.with-errors {
+    color: #ff5050;
+    margin-top: 5px;
+
+}
+
+.card{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+</style>
+<?php echo "<div class=\"alert alert-success\" role=\"alert\">"
+                . "Member  " . GetLastMember()
+                . " added successfully</div>";?>
+<form id="contact-form" action="actions/ajouterMember.php" method="post" role="form">
 <div class="container">
-        <div class=" text-center mt-5 ">
+    <div class="text-center mt-5">
+        <h1>Ajouter un membre</h1>
+    </div>
 
-            <h1 >Ajouter un membre</h1>
-                
-            
-        </div>
-
-    
-    <div class="row ">
-      <div class="col-lg-12 " >
-        <div class="card mt-2 mx-auto p-4 bg-light" style="height: 70vh;">
-            <div class="card-body bg-light">
-       
-            <div class = "container" >
-             <form id="contact-form"  action="actions/ajouterMember.php" method="post" role="form">
-
-            
-
-            <div class="controls" >
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_name">Nom Complet*</label>
-                            <input id="form_name" type="text" name="Nom_complet" class="form-control form-control-lg" placeholder="Enter le nom complet et correct*" required="required" data-error="Nom complet is required.">
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_Cin">Cin *</label>
-                            <input id="form_Cin" type="text" name="Cin" class="form-control" placeholder="Please enter your Cin *" required="required" data-error="Cin is required.">
-                                                            </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_Adress">Adress *</label>
-                            <input id="form_Adress" type="Adress" name="Adress" class="form-control" placeholder="Please enter your Adress *" required="required" data-error="Valid Adress is required.">
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_need">Date Naissance *</label>
-                          <input type="date" name="Date_naissance"  class="form-control"  id="">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_message">Tel *</label>
-                            <input type="number" name="Tel" class="form-control"  id="">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mt-2 mx-auto p-4 bg-light" >
+                <div class="card-body bg-light">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="form_name" class="form-label">Nom Complet*</label>
+                                        
+                                        <input id="form_name" type="text" name="Nom_complet" class="form-control " placeholder="Entrer le nom complet et correct*" required="required" aria-label="Nom complet">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="form_Cin" class="form-label">Cin *</label>
+                                        <input id="form_Cin" type="text" name="Cin" class="form-control" placeholder="S'il vous plaît entrez votre Cin *" required="required" aria-label="Cin">
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="form_Adress" class="form-label">Adress *</label>
+                                        <input id="form_Adress" type="text" name="Adress" class="form-control" placeholder="S'il vous plaît entrez votre Adress *" required="required" aria-label="Adress">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="form_need" class="form-label">Date Naissance *</label>
+                                        <input type="date" name="Date_naissance" class="form-control" aria-label="Date Naissance">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="form_message" class="form-label">Tel *</label>
+                                        <input type="number" name="Tel" class="form-control" aria-label="Tel">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="form_need" class="form-label">Genre *</label>
+                                        <select id="form_need" name="Genre" class="form-select " required="required" aria-label="Genre">
+                                            <option value="" selected disabled>--choix du genre--</option>
+                                            <option value="homme">homme</option>
+                                            <option value="femme">femme</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="form_message" class="form-label">Date inscription *</label>
+                                        <input type="date" name="Date_inscription" class="form-control" aria-label="Date inscription">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="form_need" class="form-label">Durée *</label>
+                                        <select id="form_need" name="Durée_mois" class="form-select" required="required" aria-label="Durée">
+                                            <option value="" selected disabled>--choix du durée--</option>
+                                            <option value="1 mois">1 mois</option>
+                                            <option value="3 mois">3 mois</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 mx-auto mt-5">
+                            <input type="submit" class="btn btn-success col-5  btn-send pt-2 btn-block" value="Ajouter">
+                        </div>
+                        </div>
+                        
                    
-
-                        </div>
-                        <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_need">Genre *</label>
-                            <select id="form_need" name="Genre" class="form-control" required="required" data-error="choisi une seul Genre.">
-                                <option value="" selected disabled>--choix du genre--</option>
-                                <option value="homme">homme</option>
-                                <option value="femme">femme</option>
-                               
-                            </select>
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_message">Date inscription *</label>
-                            <input type="date" name="Date_inscription" class="form-control"  id="">
-                            </div>
-                            </div>
-                            <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_need">Dureé *</label>
-                            <select id="form_need" name="Durée_mois" class="form-control" required="required" data-error="choisi la durée.">
-                                <option value="" selected disabled>--choix du durée--</option>
-                                <option value="1 mois" >1 mois</option>
-                                <option value="3 mois">3 mois</option>
-                               
-                            </select>
-                            
-                        </div>
-                    </div>
-                    
                 </div>
-                
-                
             </div>
-            <div class="col-md-3 " >
-                
-                <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                    " value="Ajouter" >
-            
         </div>
-         </form>
-        </div>
-            </div>
-
-
-    </div>
-        <!-- /.8 -->
-
-    </div>
-    <!-- /.row-->
     </div>
 </div>
-
-
-
-
-
+ </form>
 
 
 

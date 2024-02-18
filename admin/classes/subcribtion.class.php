@@ -33,11 +33,11 @@ class subcribtion{
            //connection db
            $cnx= connexion::connecter_db();
            //preparer une requete SQL 
-          $rp= $cnx->prepare("update subscription set Date_inscription=?, Durée_mois=? where id=?");
+          $rp= $cnx->prepare("update subscription set Date_inscription=?, Durée_mois=? where Member_id=?");
            //execution
        $rp->execute([$this->Date_inscription,$this->Durée_mois,$id]);
     } catch (\Throwable $th) {
-        echo "Erreur de modification d'un employe ".$th->getMessage();
+        echo "Erreur de modification d'un sbscription ".$th->getMessage();
     }
     
     }

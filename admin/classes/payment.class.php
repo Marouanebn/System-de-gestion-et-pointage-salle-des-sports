@@ -10,35 +10,43 @@ class Payment {
     public $expire_date;
     public $Subscribtion_id;
 
-    public function __construct($Subscribtion_id,$Date_payment,$status="payée",$Montant=200) {
-        $this->status = $status;
-        $this->Montant = $Montant;
-       
+    public function __construct($Subscribtion_id, $Date_payment) {
+        $this->Montant = 200;
         $this->Date_payment = $Date_payment;
-        $this->expire_date = date('Y-m-d', strtotime($Date_payment. ' + 1 month'));
+        $this->expire_date = date('Y-m-d', strtotime($this->Date_payment. ' + 1 month'));
+        $this->expire_date = date('Y-m-d', strtotime($this->Date_payment. ' + 1 month'));
+        if (strtotime($this->expire_date) <= strtotime(date('Y-m-d'))){
+            $this->status = "non payée";
+        } else {
+            $this->status = "payée";
+        }
+        
         $this->Subscribtion_id = $Subscribtion_id; 
     }
+    
 
     public function AjouterPayment() {
+       
+       
+      
+
+
         try {
             // Connection to the database
             $cnx = connexion::connecter_db();
-            if($this->expire_date){
-                $this->status = "non payée";
-
-            
-            // Prepare SQL query
-            $rp = $cnx->prepare("INSERT INTO payment(status, Montant, Date_payment,exprired_date,Subscribtion_id) VALUES (?,?,?,?,?)");
            
-            // Execution
-            $rp->execute([$this->status, $this->Montant, $this->Date_payment, $this->expire_date,$this->Subscribtion_id]);
+                // Prepare SQL query
+                $rp = $cnx->prepare("INSERT INTO payment(status, Montant, Date_payment,exprired_date,Subscribtion_id) VALUES (?,?,?,?,?)");
+                
+                // Execution
+                $rp->execute([$this->status, $this->Montant, $this->Date_payment, $this->expire_date,$this->Subscribtion_id]);
+                
+            } catch (\Throwable $th) {
+                // Handle errors
+                echo "Error adding a payment: " . $th->getMessage();
+            }
+        
         }
-
-        } catch (\Throwable $th) {
-            // Handle errors
-            echo "Error adding a payment: " . $th->getMessage();
-        }
-    }
    static public function AfficherNonPayée() {
         try {
             // Connection to the database
@@ -90,7 +98,8 @@ static function  CalculerMontantParMois(){
             $cnx = connexion::connecter_db();
             
             // Prepare SQL query
-            $rp = $cnx->prepare("SELECT
+            $rp = $cnx->prepare("
+            SELECT
             SUM(Montant) as 'Montant', MONTHNAME(Date_payment) as mois
         FROM
             payment
