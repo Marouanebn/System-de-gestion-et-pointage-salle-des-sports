@@ -1,6 +1,6 @@
 
 <?php 
-include_once"includes/sidebar.php";
+include_once"../includes/sidebar.php";
 
 
 ?>
@@ -129,7 +129,7 @@ include_once"includes/sidebar.php";
     clear: both;
 }</style>
 <?php 
-include_once 'classes/historique.class.php';
+include_once '../classes/historique.class.php';
 $history = historique::afficher_historique();
 
 ?>
@@ -186,5 +186,4 @@ $history = historique::afficher_historique();
                           </div>        
  
 
-</body>
-</html>
+                          <?php include_once"../includes/footer.php";?>

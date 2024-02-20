@@ -12,7 +12,7 @@ try {
        $historique = new historique("supprimer" , "supprimer $sup");
        $historique -> ajouter_historique();
      
-       header("location:../table_member.php");
+       header("location:../pages/table_member.php");
    
   
 

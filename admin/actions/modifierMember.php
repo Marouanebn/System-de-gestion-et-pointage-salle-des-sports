@@ -21,7 +21,7 @@ try {
        
             $historique = new historique("modifer","modifier $Nom_complet");
             $historique->ajouter_historique();
-            header("location:../table_member.php");
+            header("location:../pages/table_member.php");
             exit; // Exit to prevent further execution
         
     } else {

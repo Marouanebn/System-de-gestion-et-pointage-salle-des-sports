@@ -1,8 +1,8 @@
 <?php 
-include_once"classes/connexion.class.php";
-include_once "classes/subcribtion.class.php";
-include_once"classes/payment.class.php";
-include_once"classes/member.class.php";
+include_once"../classes/connexion.class.php";
+include_once "../classes/subcribtion.class.php";
+include_once"../classes/payment.class.php";
+include_once"../classes/member.class.php";
 
 
 $rpgenre= connexion::count_genre();       
@@ -23,7 +23,7 @@ $rpmontant = Payment::CalculerMontantParMois();
 $totalMember = connexion::totalMemberActive();
 // print_r($totalMember);
 
-include_once"includes/sidebar.php";
+include_once"../includes/sidebar.php";
 ?>
 <style>
 .order-card {
@@ -82,7 +82,7 @@ include_once"includes/sidebar.php";
 
   <div class="container pb-5 " style="margin-top: 8rem!important;">
     <div class="row justify-content-evenly">
-        <div class="col-md-4 col-xl-3 ">
+        <div class="col-md-5 col-xl-3 ">
             <div class="card bg-c-blue order-card " >
               <?php  foreach ($totalMember  as $TotalMember) {
                 
@@ -95,7 +95,7 @@ include_once"includes/sidebar.php";
             <?php }?>
         </div>
         
-        <div class="col-md-4 col-xl-3">
+        <div class="col-md-5 col-xl-3">
             <div class="card bg-c-green order-card">
                 <div class="card-block">
                     <h6 class="m-b-20">nombre total de membres inactifs</h6>
@@ -104,7 +104,7 @@ include_once"includes/sidebar.php";
             </div>
         </div>
         
-        <div class="col-md-4 col-xl-3">
+        <div class="col-md-5 col-xl-3">
             <div class="card bg-c-yellow order-card">
            
                     <?php 
@@ -125,7 +125,7 @@ foreach ($rpmontant as $data) {?>
 </div>
 <div class="row mt-4 justify-content-evenly align-items-center">
     
-    <div class="col-lg-4 col-sm-12">
+    <div class="col-lg-4 col-md-4 col-sm-12">
     <div style="width: 100%;">
 <p class="text-center">Analyser du genre</p>
 
@@ -133,7 +133,7 @@ foreach ($rpmontant as $data) {?>
 </div>
 
     </div>
-    <div class="col-lg-5 col-sm-12"  id="fixv">
+    <div class="col-lg-5 col-md-7 col-sm-11"  id="fixv">
     <div style="width: 100%; ">
 <p class="text-center">Analyse des subscription</p>
 
@@ -216,5 +216,4 @@ const datasub = {
 
   new Chart(ctj, configsub);
 </script>
-</body>
-</html>
+<?php include_once"../includes/footer.php";?>

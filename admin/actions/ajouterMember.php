@@ -22,7 +22,7 @@ try {
             $payment->AjouterPayment();
             $historique = new historique("ajouter","ajouter $Nom_complet");
             $historique->ajouter_historique();
-            header("location:../add_member.php");
+            header("location:../pages/add_member.php");
             exit; // Exit to prevent further execution
         } else {
             throw new Exception('Failed to add subscription');

@@ -1,10 +1,10 @@
 <?php 
 
-include_once"includes/sidebar.php";
-include_once 'classes/connexion.class.php';
-include_once 'classes/member.class.php';
-include_once 'classes/subcribtion.class.php';
-include_once 'classes/payment.class.php';
+include_once"../includes/sidebar.php";
+include_once '../classes/connexion.class.php';
+include_once '../classes/member.class.php';
+include_once '../classes/subcribtion.class.php';
+include_once '../classes/payment.class.php';
 
 
 
@@ -56,7 +56,7 @@ label {
 <?php echo "<div class=\"alert alert-success\" role=\"alert\">"
                 . "Member  " . GetLastMember()
                 . " added successfully</div>";?>
-<form id="contact-form" action="actions/ajouterMember.php" method="post" role="form">
+<form id="contact-form" action="../actions/ajouterMember.php" method="post" role="form">
 <div class="container">
     <div class="text-center mt-5">
         <h1>Ajouter un membre</h1>
@@ -78,21 +78,22 @@ label {
                                 <div class="col-md-6 mt-4">
                                     <div class="form-group">
                                         <label for="form_Cin" class="form-label">Cin *</label>
-                                        <input id="form_Cin" type="text" name="Cin" class="form-control" placeholder="S'il vous plaît entrez votre Cin *" required="required" aria-label="Cin">
+                                        <input id="form_Cin" type="text" name="Cin" class="form-control" placeholder="Ex : BK5552551 *" required="required" aria-label="Cin">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mt-4">
                                     <div class="form-group">
-                                        <label for="form_Adress" class="form-label">Adress *</label>
-                                        <input id="form_Adress" type="text" name="Adress" class="form-control" placeholder="S'il vous plaît entrez votre Adress *" required="required" aria-label="Adress">
+                                        <label for="form_Adress" class="form-label">Email *</label>
+                                        <input id="form_Adress" type="text" name="Adress" class="form-control" placeholder="Ex: ahmedhamido5@gmail.com *" required="required" aria-label="Adress">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-4">
                                     <div class="form-group">
+                                    <p id="message"></p>
                                         <label for="form_need" class="form-label">Date Naissance *</label>
-                                        <input type="date" name="Date_naissance" class="form-control" aria-label="Date Naissance">
+                                        <input type="date" id="birthdate" onchange="checkAge(this.value)" name="Date_naissance" class="form-control" aria-label="Date Naissance">
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +101,7 @@ label {
                                 <div class="col-md-6 mt-4">
                                     <div class="form-group">
                                         <label for="form_message" class="form-label">Tel *</label>
-                                        <input type="number" name="Tel" class="form-control" aria-label="Tel">
+                                        <input type="number" name="Tel" placeholder="Ex : 06 25 25 15 77" class="form-control" aria-label="Tel">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-4">
@@ -142,12 +143,33 @@ label {
     </div>
 </div>
  </form>
+ <script>
+function checkAge(birthDateString) {
+    var messageElement = document.getElementById('message');
+    var today = new Date();
+    var birthDate = new Date(birthDateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
 
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    if (age >= 18) {
+        messageElement.textContent = '';
+        messageElement.style.display = 'none';
+    } else {
+        messageElement.textContent = 'Le member est mineur';
+        messageElement.style.color = 'red';
+        
+    }
+}
+</script>
 
 
 <?php 
 
-include_once "includes/footer.php";
+include_once "../includes/footer.php";
 
 
 ?>

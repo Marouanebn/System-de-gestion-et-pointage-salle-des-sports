@@ -1,9 +1,9 @@
 <?php 
 // include_once"includes/sidebar.php";
-include_once 'classes/payment.class.php';
+include_once '../classes/payment.class.php';
 $payment= Payment::AfficherNonPayée();
 // echo print_r($payment);
-include_once "includes/sidebar.php";
+include_once "../includes/sidebar.php";
 ?>
 
 
@@ -54,7 +54,7 @@ include_once "includes/sidebar.php";
                   <td><?=$v['Durée_mois']?></td>
                   <td><span class="badge bg-<?=$color?> p-3"><?=$v['status']?></span></td>
                   <td><?=$v['Date_payment']?></td>
-                  <td> <a href="actions/effectuerpayment.php?id=<?=$v['Payment_id']?>" class="btn btn-success">Payer</a></td>
+                  <td> <a href="../actions/effectuerpayment.php?id=<?=$v['Payment_id']?>" class="btn btn-success">Payer</a></td>
                 </tr>
               </tbody>
               <?php }?>
@@ -78,4 +78,4 @@ include_once "includes/sidebar.php";
     });
   });
 </script>
-<?php  include_once"includes/footer.php"; ?>
+<?php  include_once"../includes/footer.php"; ?>

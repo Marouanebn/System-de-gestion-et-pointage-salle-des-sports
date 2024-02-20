@@ -1,14 +1,14 @@
 <?php 
-include_once "classes/member.class.php";
+include_once "../classes/member.class.php";
 
-include_once "includes/sidebar.php";
+include_once "../includes/sidebar.php";
 
 $member = member::find($_GET['id'], "member");
 $sub = member::find($_GET['id'], "subscription");
 
 ?>
 
-<form id="contact-form" action="actions/modifierMember.php" method="post" role="form">
+<form id="contact-form" action="../actions/modifierMember.php" method="post" role="form">
 <div class="container">
     <div class="text-center mt-5">
         <h1>Modifier un membre</h1>
@@ -94,4 +94,5 @@ $sub = member::find($_GET['id'], "subscription");
     </div>
 </div>
  </form>
+ <?php include_once"../includes/footer.php";?>
 

@@ -1,6 +1,6 @@
 <?php 
-include_once "includes/sidebar.php";
-include_once "classes/Member.class.php";
+include_once "../includes/sidebar.php";
+include_once "../classes/Member.class.php";
 $membres = Member::allMember();
 ?>
 
@@ -44,7 +44,7 @@ $membres = Member::allMember();
                             <td><?=$v['Tel']?></td>
                             <td><?=$v['Genre']?></td>
                             <td>
-                            <a href="actions/supprimer.php?id=<?=$v['Member_id']?>" class="btn btn-danger" >Suprimmer</a>                              
+                            <a href="../actions/supprimer.php?id=<?=$v['Member_id']?>" class="btn btn-danger" >Suprimmer</a>                              
                               <a href="modifier_member.php?id=<?=$v['Member_id']?>" class="btn btn-warning" >Modifier</a>
                             </td>
                         </tr>
@@ -75,4 +75,4 @@ $membres = Member::allMember();
     });
   });
 </script>
-<?php include_once "includes/footer.php"?>
+<?php include_once"../includes/footer.php";?>

@@ -31,7 +31,7 @@
             <div> <a href="Dashboard.php" class="nav_logo"><i class='bx bx-dumbbell nav_logo-icon'></i><span class="nav_logo-name">Lifestyle Dashboard</span> </a>
                 <div class="nav_list"> <a href="Dashboard.php" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Statistique</span> </a>
                     <a href="add_member.php" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Ajouter Member</span> </a>
-                    <a href="add_payment.php" class="nav_link"><i class='bx bx-dollar-circle nav'></i> <span class="nav_name">abonnement impayé</span> </a>
+                    <a href="add_payment.php" class="nav_link"><i class='bx bx-dollar-circle nav'></i> <span class="nav_name">Abonnement impayé</span> </a>
                     <a href="table_member.php" class="nav_link"><i class='bx bx-group nav_icon'></i><span class="nav_name">Les members</span> </a>
                     <a href="historique.php" class="nav_link"><i class='bx bx-history nav_icon'></i><span class="nav_name">Historique</span> </a>
                 </div> 

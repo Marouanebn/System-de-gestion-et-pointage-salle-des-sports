@@ -3,12 +3,16 @@
 
 class connexion{
 
+private static $host="localhost";
+private static $dbname= "lifestylebd";
+private static $username ="root";
+private static $password ="";
 
  
 public   static function connecter_db()
   {
       try {
-          $cnx = new PDO('mysql:host=localhost;dbname=lifestylebd', "root", "");
+          $cnx = new PDO('mysql:host='.self::$host.';dbname='.self::$dbname, self::$username,self::$password);
 
           return $cnx;
       } catch (\Throwable $th) {
