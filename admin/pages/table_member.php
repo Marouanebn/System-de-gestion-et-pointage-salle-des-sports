@@ -43,6 +43,7 @@ $membres = Member::allMember();
                             <td><?=$v['Date_naissance']?></td>
                             <td><?=$v['Tel']?></td>
                             <td><?=$v['Genre']?></td>
+                            
                             <td>
                             <a href="../actions/supprimer.php?id=<?=$v['Member_id']?>" class="btn btn-danger" >Suprimmer</a>                              
                               <a href="modifier_member.php?id=<?=$v['Member_id']?>" class="btn btn-warning" >Modifier</a>

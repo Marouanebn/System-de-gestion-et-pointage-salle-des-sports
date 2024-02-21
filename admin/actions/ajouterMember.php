@@ -4,6 +4,7 @@ include_once '../classes/member.class.php';
 include_once '../classes/subcribtion.class.php';
 include_once '../classes/payment.class.php';
 include_once '../classes/historique.class.php';
+include_once '../classes/qrcode.class.php';
 
 
 
@@ -19,11 +20,25 @@ try {
 
         if ($Subcribtion_id) {
             $payment = new payment($Subcribtion_id, $Date_inscription);
-            $payment->AjouterPayment();
-            $historique = new historique("ajouter","ajouter $Nom_complet");
-            $historique->ajouter_historique();
-            header("location:../pages/add_member.php");
-            exit; // Exit to prevent further execution
+            $payment_id = $payment->AjouterPayment();
+            if ($payment_id) {
+                $info = "Nom adheron ".$Nom_complet."\ninscriver le ".$Date_inscription."" ;
+                $qrcode = new qrcodegenerator($Nom_complet,$info,$payment_id);
+                $qrcode = $qrcode->ajouter_qrcode();
+                $mail = member::envoyer_mail($qrcode, $Adress,$Nom_complet);
+
+                // Historique
+                // $historique = new historique("ajouter","ajouter $Nom_complet");
+                // $historique->ajouter_historique();
+
+                // header("location:../pages/add_member.php");
+                exit; // Exit to prevent further execution
+            }
+                else {
+                    # code...
+                    throw new Exception('Failed to add qr code');
+                }
+
         } else {
             throw new Exception('Failed to add subscription');
         }

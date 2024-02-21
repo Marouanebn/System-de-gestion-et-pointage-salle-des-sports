@@ -1,5 +1,10 @@
 <?php 
 include_once "connexion.class.php";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Include PHPMailer autoloader
+require '../libarary/PHPMailer/vendor/autoload.php';
 class member{
     //data 
     public $Nom_complet;
@@ -33,7 +38,107 @@ class member{
     //         }
         
     // }
+    static function envoyer_mail($qrcode, $address,$Nom_complet) {
+        // Create a new PHPMailer instance
+        // Define dimensions
+$imageWidth = 500;
+$imageHeight = 650;
+
+// Create a new image with the specified width and height
+$image = imagecreatetruecolor($imageWidth, $imageHeight);
+
+// Set background color (white)
+$backgroundColor = imagecolorallocate($image, 255, 255, 255);
+imagefill($image, 0, 0, $backgroundColor);
+
+// Load the background image
+$backgroundImagePath = '../img/membership.jpg'; // Update with your image path
+$backgroundImage = imagecreatefromjpeg($backgroundImagePath);
+
+// Get the dimensions of the background image
+$bgImageWidth = imagesx($backgroundImage);
+$bgImageHeight = imagesy($backgroundImage);
+
+// Calculate the scale factor to fit the background image within the container
+$scaleFactor = min($imageWidth / $bgImageWidth, $imageHeight / $bgImageHeight);
+
+// Calculate the dimensions of the scaled background image
+$scaledWidth = $bgImageWidth * $scaleFactor;
+$scaledHeight = $bgImageHeight * $scaleFactor;
+
+// Calculate the position to center the scaled background image
+$offsetX = ($imageWidth - $scaledWidth) / 2;
+$offsetY = ($imageHeight - $scaledHeight) / 2;
+
+// Copy and resize the background image onto the canvas
+imagecopyresampled($image, $backgroundImage, $offsetX, $offsetY, 0, 0, $scaledWidth, $scaledHeight, $bgImageWidth, $bgImageHeight);
+
+// Load the QR code image
+$qrCodeImagePath = $qrcode; // Update with your QR code image path
+$qrCodeImage = imagecreatefrompng($qrCodeImagePath);
+
+// Get the dimensions of the QR code image
+$qrCodeWidth = 259;
+$qrCodeHeight =232;
+$resizedQrCode = imagescale($qrCodeImage, $qrCodeWidth, $qrCodeHeight);
+// Calculate the position to place the QR code within the container
+$qrCodeX = 125; // Update with the X position
+$qrCodeY = 310; // Update with the Y position
+
+// Copy the QR code image onto the canvas
+imagecopy($image, $resizedQrCode, $qrCodeX, $qrCodeY , 0, 0, $qrCodeWidth, $qrCodeHeight);
+// Save the image to a file
+$outputImagePath = 'membership_card.png'; // Specify the output image path
+imagepng($image, $outputImagePath);
+        $mail = new PHPMailer(true);
+    
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'hades7570@gmail.com';
+            $mail->Password   = 'vhct npkr oitj acqn';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port       = 587;
+            
+            // Recipients
+            $mail->setFrom('hades7570@gmail.com', 'Lifestylefitness-direction');
+            $mail->addAddress($address);
+    
+            // Get base64 encoded background image
+            // $mail->addAttachment('../img/Ajouter un titre (1).jpg', 'background.jpg'); // Attach background image
+            // $mail->addAttachment($qrcode, 'qrcode.png'); // Attach QR code image
+            
+    
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = 'Your Membership Card';
+            $mail->Body = '<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+            </head>
+            <body>
+               <h1>Bonjour et bienvenue '.$Nom_complet.' a Lifestylefitness</h1>
+               <p>Il faut scanner ce code QR à l\'entreé<p/>
+            </body>
+            </html>
+            ';
+            $mail->addAttachment($outputImagePath, 'membership_card.png');
+            // Send the email
+            $mail->send();
+            echo 'Email sent successfully';
+        } catch (Exception $e) {
+            echo "Email sending failed: {$mail->ErrorInfo}";
+        }
+    
+
+    }
     //une methode pour  ajouter un employe dans la bd : 
+
     public function AjouterMembre() {
         try {
            //connection db

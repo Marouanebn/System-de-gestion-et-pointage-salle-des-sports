@@ -14,7 +14,6 @@ class Payment {
         $this->Montant = 200;
         $this->Date_payment = $Date_payment;
         $this->expire_date = date('Y-m-d', strtotime($this->Date_payment. ' + 1 month'));
-        $this->expire_date = date('Y-m-d', strtotime($this->Date_payment. ' + 1 month'));
         if (strtotime($this->expire_date) <= strtotime(date('Y-m-d'))){
             $this->status = "non payée";
         } else {
@@ -41,6 +40,7 @@ class Payment {
                 // Execution
                 $rp->execute([$this->status, $this->Montant, $this->Date_payment, $this->expire_date,$this->Subscribtion_id]);
                 
+                return $cnx->lastInsertId();
             } catch (\Throwable $th) {
                 // Handle errors
                 echo "Error adding a payment: " . $th->getMessage();
