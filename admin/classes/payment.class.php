@@ -35,7 +35,7 @@ class Payment {
             $cnx = connexion::connecter_db();
            
                 // Prepare SQL query
-                $rp = $cnx->prepare("INSERT INTO payment(status, Montant, Date_payment,exprired_date,Subscribtion_id) VALUES (?,?,?,?,?)");
+                $rp = $cnx->prepare("INSERT INTO payment(status, Montant, Date_payment,expired_date,Subscribtion_id) VALUES (?,?,?,?,?)");
                 
                 // Execution
                 $rp->execute([$this->status, $this->Montant, $this->Date_payment, $this->expire_date,$this->Subscribtion_id]);
@@ -53,7 +53,7 @@ class Payment {
             $cnx = connexion::connecter_db();
             
             // Prepare SQL query
-            $rp = $cnx->prepare("SELECT m.Nom_complet, s.Date_inscription, s.Durée_mois ,p.Date_payment,p.Payment_id ,p.status
+            $rp = $cnx->prepare("SELECT m.Nom_complet, m.adress as 'email',s.Date_inscription, s.Durée_mois ,p.Date_payment,p.Payment_id ,p.status
             FROM member m
             JOIN subscription s ON m.Member_id = s.Member_id
             JOIN payment p ON p.Subscribtion_id = s.Subscription_id
@@ -79,8 +79,12 @@ class Payment {
             $rp = $cnx->prepare("UPDATE payment SET status = 'payeé' , Date_payment = CURRENT_DATE WHERE Payment_id=?;");
             // Execution
             $rp->execute([$Payment_id]);
-            $resultat=$rp->fetchAll();
-            return $resultat;
+            $rp2 = $cnx->prepare("select expired_date from payment WHERE Payment_id=?;");
+            $rp2->execute([$Payment_id]);
+            
+            $all=$rp2->fetch();
+            $str = implode(',', $all);
+            return $str;
      
      
             

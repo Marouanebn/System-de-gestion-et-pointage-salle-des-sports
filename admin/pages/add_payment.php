@@ -54,7 +54,7 @@ include_once "../includes/sidebar.php";
                   <td><?=$v['Durée_mois']?></td>
                   <td><span class="badge bg-<?=$color?> p-3"><?=$v['status']?></span></td>
                   <td><?=$v['Date_payment']?></td>
-                  <td> <a href="../actions/effectuerpayment.php?id=<?=$v['Payment_id']?>" class="btn btn-success">Payer</a></td>
+                  <td> <a href="../actions/effectuerpayment.php?id=<?=$v['Payment_id']?>&Nom_complet=<?=$v['Nom_complet']?>&email=<?=$v['email']?>" class="btn btn-success">Payer</a></td>
                 </tr>
               </tbody>
               <?php }?>

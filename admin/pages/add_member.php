@@ -82,11 +82,129 @@ label {
                                     </div>
                                 </div>
                             </div>
+                            <style>.email-input {
+    --text: #646B8C;
+    --text-placeholder: #BBC1E1;
+    --icon: #A6ACCD;
+    --icon-focus: #646B8C;
+    --icon-invalid: #F04949;
+    --icon-valid: #16BF78;
+    --background: #fff;
+    --border: #D1D6EE;
+    --border-hover: #A6ACCD;
+    --border-focus: #275EFE;
+    --shadow-focus: #{rgba(#275EFE, .32)};
+    position: relative;
+    input {
+        width: 100%;
+        /* -webkit-appearance: none; */
+        outline: none;
+        display: block;
+        font-size: 14px;
+        font-family: inherit;
+        margin: 0;
+        padding: 8px 16px 8px 41px;
+        line-height: 26px;
+        border-radius: 6px;
+        color: var(--text);
+        border: 1px solid var(--bc, var(--border));
+        background: var(--background);
+        transition: border-color .3s, box-shadow .3s;
+        &::placeholder {
+            color: var(--text-placeholder);
+        }
+    }
+    svg {
+        width: 16px;
+        height: 16px;
+        top: 14px;
+        left: 14px;
+        display: block;
+        position: absolute;
+        fill: none;
+        stroke: var(--i, var(--icon));
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.6;
+        transition: stroke .3s;
+        path {
+            stroke-dasharray: 80;
+            stroke-dashoffset: var(--path, 170);
+            transition: stroke-dashoffset .5s ease var(--path-delay, .3s);
+        }
+        polyline {
+            stroke-dasharray: 12;
+            stroke-dashoffset: var(--tick, 12);
+            transition: stroke-dashoffset .45s ease var(--tick-delay, 0s);
+        }
+    }
+    &:hover {
+        --bc: var(--border-hover);
+    }
+    &:focus-within {
+        --bc: var(--border-focus);
+        --i: var(--icon-focus);
+        input {
+            box-shadow: 0 1px 6px -1px var(--shadow-focus);
+        }
+    }
+    &:not(.valid) {
+        input {
+            &:not(:placeholder-shown) {
+                &:not(:focus) {
+                    & + svg {
+                        --i: var(--icon-invalid);
+                    }
+                }
+            }
+        }
+    }
+    &.valid {
+        --i: var(--icon-valid);
+        --path: 132;
+        --path-delay: 0s;
+        --tick: 0;
+        --tick-delay: .3s;
+    }
+}
+
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: inherit;
+    &:before,
+    &:after {
+        box-sizing: inherit;
+    }
+}
+</style>
+<script>const regex = new RegExp(
+    '^(([^<>()[\\]\\\\.,;:\\s@\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\"]+)*)|' +
+    '(\\".+\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])' +
+    '|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'
+);
+
+document.querySelectorAll('.email-input').forEach(container => {
+
+    let input = container.querySelector('input')
+
+    input.addEventListener('keyup', e => container.classList.toggle('valid', regex.test(input.value)))
+
+});</script>
                             <div class="row">
                                 <div class="col-md-6 mt-4">
                                     <div class="form-group">
                                         <label for="form_Adress" class="form-label">Email *</label>
-                                        <input id="form_Adress" type="text" name="Adress" class="form-control" placeholder="Ex: ahmedhamido5@gmail.com *" required="required" aria-label="Adress">
+                                        <div class="email-input form-group">
+    <input id="form_Adress" type="email"  class="form-control col-md-6 mt-4" name="adress" placeholder="aaron@gmail.com">
+    <svg viewBox="0 0 18 18">
+        <path d="M11.5,10.5 C6.4987941,17.5909626 1,3.73719105 11.5,6 C10.4594155,14.5485365 17,13.418278 17,9 C17,4.581722 13.418278,1 9,1 C4.581722,1 1,4.581722 1,9 C1,13.418278 4.581722,17 9,17 C13.418278,17 17,13.42 17,9"></path>
+        <polyline points="5 9.25 8 12 13 6"></polyline>
+    </svg>
+</div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-4">

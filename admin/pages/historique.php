@@ -135,7 +135,7 @@ $history = historique::afficher_historique();
 ?>
 <div class="row d-flex justify-content-center mt-70 mb-70">
 
-<div class="col-md-6">
+<div class="col-md-7">
 
   <div class="main-card mb-3 card">
                               <div class="card-body">
@@ -149,28 +149,35 @@ $history = historique::afficher_historique();
                                                   
                                                   
                                                   ?>
-                                              <div class="vertical-timeline-element-content bounce-in ">
+                                              <div class="vertical-timeline-element-content bounce-in  " <?php if ( $action['action_time'] == date('Y-m-d', strtotime($action['action_time']. ' + 1 month'))) {$suprimerhistory = "style='display: none;'";
+                                                    
+                                                  ?> <?=$suprimerhistory?> <?php }?>>
                                                   <span class="vertical-timeline-element-icon bounce-in">
                                                       <i class="badge badge-dot badge-dot-xl badge-success"></i>
                                                   </span>
                                                   <h4 class="timeline-title " style="margin-right: 0;">vous avez <?=$action['action_detail']?></h4>
                                                   <?php 
-                                                  if ($action['action_type'] == "ajouter") {
+                                                  if ($action['action_type'] == "ajouter" || $action['action_time'] == date('Y-m-d', strtotime($action['action_time']. ' + 1 month'))) {
                                                     $icon = "bx-plus";
                                                     $color = "#00f827";
+                                                    $suprimerhistory = "display: none";
                                                 }
-                                                    elseif ($action['action_type'] == "supprimer"){
+                                                    else if ($action['action_type'] == "supprimer"){
 
                                                         $icon = "bx-x";
                                                         $color = "#ff0000";
                                                     }
-                                                    else{
+                                                    else if($action['action_type'] == "modifer" ){
                                                         $icon = "bx-pencil";
                                                         $color = "#0094ff";
 
+                                                    }else if($action['action_type'] == "payment" ){
+                                                        $icon = "bx-dollar-circle";
+                                                        $color = "#F0F006";
+                                                        
                                                     }
                                                 ?>
-                                                  <span class="vertical-timeline-element-date"><i class='bx <?=$icon ?>' style='color:<?= $color?>'  ></i><?=$action['action_time']?></span>
+                                                  <span class="vertical-timeline-element-date"><i class='bx <?=$icon ?>' style='color:<?= $color?>;'  ></i><?=$action['action_time']?></span>
                                               </div><?php }  ?>  
                                           </div>
                                       </div>

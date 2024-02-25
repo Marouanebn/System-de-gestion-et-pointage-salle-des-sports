@@ -22,16 +22,16 @@ try {
             $payment = new payment($Subcribtion_id, $Date_inscription);
             $payment_id = $payment->AjouterPayment();
             if ($payment_id) {
-                $info = "Nom adheron ".$Nom_complet."\ninscriver le ".$Date_inscription."" ;
+                $info = $Nom_complet."<br>".$Date_inscription."" ;
                 $qrcode = new qrcodegenerator($Nom_complet,$info,$payment_id);
                 $qrcode = $qrcode->ajouter_qrcode();
-                $mail = member::envoyer_mail($qrcode, $Adress,$Nom_complet);
+                $mail = member::envoyer_mail($qrcode, $Adress,$Nom_complet,"new");
 
-                // Historique
-                // $historique = new historique("ajouter","ajouter $Nom_complet");
-                // $historique->ajouter_historique();
+                //ajouter a Historique
+                $historique = new historique("ajouter","ajouter $Nom_complet");
+                $historique->ajouter_historique();
 
-                // header("location:../pages/add_member.php");
+                header("location:../pages/add_member.php");
                 exit; // Exit to prevent further execution
             }
                 else {

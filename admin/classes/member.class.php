@@ -38,7 +38,7 @@ class member{
     //         }
         
     // }
-    static function envoyer_mail($qrcode, $address,$Nom_complet) {
+    static function envoyer_mail($qrcode, $address,$Nom_complet,$subject) {
         // Create a new PHPMailer instance
         // Define dimensions
 $imageWidth = 500;
@@ -110,40 +110,66 @@ imagepng($image, $outputImagePath);
             // $mail->addAttachment('../img/Ajouter un titre (1).jpg', 'background.jpg'); // Attach background image
             // $mail->addAttachment($qrcode, 'qrcode.png'); // Attach QR code image
             
-    
-            // Content
-            $mail->isHTML(true);
-            $mail->Subject = 'Your Membership Card';
-            $mail->Body = '<!DOCTYPE html>
+            if ($subject == 'new') {
+                # code...
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Your Membership Card';
+                $mail->Body = '<!DOCTYPE html>
             <html lang="en">
             <head>
-                <meta charset="UTF-8">
+            <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Document</title>
             </head>
             <body>
-               <h1>Bonjour et bienvenue '.$Nom_complet.' a Lifestylefitness</h1>
+            <h1>Bonjour et bienvenue '.$Nom_complet.' a Lifestylefitness</h1>
                <p>Il faut scanner ce code QR à l\'entreé<p/>
-            </body>
-            </html>
-            ';
+               </body>
+               </html>
+               ';
             $mail->addAttachment($outputImagePath, 'membership_card.png');
             // Send the email
             $mail->send();
             echo 'Email sent successfully';
+        }   else if ($subject == 'renew'){
+
+
+            $mail->isHTML(true);
+            $mail->Subject = 'votre nouvelle carte';
+            $mail->Body = '<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+        <body>
+        <h1>Bonjour '.$Nom_complet.' </h1>
+        <p>Vous avez renouveller votre abonnement</p>
+           <p>Il faut scanner ce code QR à l\'entreé<p/>
+           </body>
+           </html>
+           ';
+        $mail->addAttachment($outputImagePath, 'membership_card.png');
+        // Send the email
+        $mail->send();
+        echo 'Email sent successfully';
+
+        }
         } catch (Exception $e) {
             echo "Email sending failed: {$mail->ErrorInfo}";
         }
-    
-
+        
+        
     }
     //une methode pour  ajouter un employe dans la bd : 
-
+    
     public function AjouterMembre() {
         try {
-           //connection db
-           $cnx= connexion::connecter_db();
-           //preparer une requete SQL 
+            //connection db
+            $cnx= connexion::connecter_db();
+            //preparer une requete SQL 
            $rp= $cnx->prepare("insert into member(Nom_complet, Cin, Adress, Date_naissance, Tel, Genre) values(?,?,?,?,?,?)");
            //execution
            $rp->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Date_naissance,$this->Tel,$this->Genre]);
@@ -213,9 +239,9 @@ imagepng($image, $outputImagePath);
            $member = $rp->fetch();
    
            //preparer une requete SQL 
-          $rp= $cnx->prepare("update member set Nom_complet=?,Cin=?, Adress=?, Date_naissance=?, Tel=?, Genre=? where Member_id=?");
+          $rp2= $cnx->prepare("update member set Nom_complet=?,Cin=?, Adress=?, Date_naissance=?, Tel=?, Genre=? where Member_id=?");
            //execution
-       $rp->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Date_naissance,$this->Tel,$this->Genre,$id]);
+       $rp2->execute([$this->Nom_complet,$this->Cin,$this->Adress,$this->Date_naissance,$this->Tel,$this->Genre,$id]);
       
          return $member['Nom_complet'];
    
@@ -237,6 +263,20 @@ imagepng($image, $outputImagePath);
             echo "Erreur recherche avec leurs departements " . $th->getMessage();
         }
     }
+    
+    static public function afficher_nom_client(){
+        try {
+            $cnx = connexion::connecter_db();
+            $rp = $cnx->prepare("select Nom_complet , Member_id FROM member;");
+
+            
+            $rp->execute([]);
+            return $rp->fetchAll();
+        } catch (\Throwable $th) {
+            echo "Erreur recherche avec leurs departements " . $th->getMessage();
+        }
+    }
+
    
 }
     

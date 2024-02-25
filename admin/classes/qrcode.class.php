@@ -45,4 +45,33 @@ class qrcodegenerator {
         }
     }
     
+    function qr_payment(){
+        try {
+            // Connection to the database
+            $cnx = connexion::connecter_db();
+           
+            // Prepare SQL query
+            $rp= $cnx->prepare("update qrcode set qrcode_info=?,qrcode_image=? where id_payment=?");
+            
+            // Execution
+            $rp->execute([$this->qrtext,  $this->qrimage, $this->payment_id]);
+            
+            // Check if insertion was successful before generating and saving the QR code image
+            if ($rp->rowCount() > 0) {
+               QRcode::png($this->qrtext, $this->qrcode, 'H', 5, 5);
+               return $this->qrcode; // Return the path to the generated QR code image
+            } else {
+                echo "Failed to insert data into the database.";
+            }
+                
+        } catch (\Throwable $th) {
+            // Handle errors
+            echo "Error adding a qrcode: " . $th->getMessage();
+        }
+
+
+
+
+    }
+    
 }
