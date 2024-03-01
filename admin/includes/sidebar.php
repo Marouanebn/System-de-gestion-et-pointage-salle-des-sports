@@ -20,11 +20,12 @@
 <body id="body-pd">
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_img align-items-center" style="font-size: x-large;
+        <!-- <div class=" align-items-center" style="font-size: large;
     display: flex;
     justify-content: center;
     border-radius: 50%;
-    overflow: hidden;"><i class='bx bx-bell'></i></div>
+    width: 250px;
+    overflow: hidden;"><h6 style="font-size: medium;padding-right: 10px;">welcome saad kakakak<i class='bx bx-user-circle'></i></h6></div> -->
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
@@ -33,11 +34,13 @@
                     <a href="add_member.php" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Ajouter Member</span> </a>
                     <a href="add_payment.php" class="nav_link"><i class='bx bx-dollar-circle nav'></i> <span class="nav_name">Abonnement impayé</span> </a>
                     <a href="table_member.php" class="nav_link"><i class='bx bx-group nav_icon'></i><span class="nav_name">Les members</span> </a>
-                    <a href="ajouterseance.php" class="nav_link"><i class='bx bx-male-female nav_icon'></i><span class="nav_name">Ajouter client coach</span> </a>
+                    <a href="ajouterseance.php" class="nav_link"><i class='bx bx-user-voice nav-icon '></i><span class="nav_name">Ajouter client coach</span> </a>
+                    <a href="clientcoach.php" class="nav_link"><i class='nav-icon bx bx-trophy'></i><span class="nav_name">Coaching table</span> </a>
+                    <a href="add_admin.php" class="nav_link"><i class='bx bx-cog nav_icon'></i><span class="nav_name">ajouter admine</span> </a>
                     <a href="historique.php" class="nav_link"><i class='bx bx-history nav_icon'></i><span class="nav_name">Historique</span> </a>
                 </div> 
-                
-                <a style="padding-top: 200px;" href="../index1.php" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Deconnecter</span> </a>
+                    
+                <a style="padding-top: 90px;" href="../actions/deconnecter.php" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Deconnecter</span> </a>
                 
     </nav>
     </div>

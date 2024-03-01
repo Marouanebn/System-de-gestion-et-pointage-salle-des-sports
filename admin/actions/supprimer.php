@@ -9,7 +9,7 @@ try {
    $sup = member::supprimer($id,"member");
   
        # code...
-       $historique = new historique("supprimer" , "supprimer $sup");
+       $historique = new historique("supprimer","supprimer".$sup);
        $historique -> ajouter_historique();
      
        header("location:../pages/table_member.php");

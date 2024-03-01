@@ -1,4 +1,5 @@
 <?php 
+include_once"../includes/loginchecks.php";
 
 include_once"../includes/sidebar.php";
 include_once '../classes/connexion.class.php';
@@ -53,14 +54,22 @@ label {
 	margin-right: 10px;
 }
 </style>
-<?php echo "<div class=\"alert alert-success\" role=\"alert\">"
-                . "Member  " . GetLastMember()
-                . " added successfully</div>";?>
 <form id="contact-form" action="../actions/ajouterMember.php" method="post" role="form">
 <div class="container">
     <div class="text-center mt-5">
         <h1>Ajouter un membre</h1>
     </div>
+<?php
+
+// Check if message exists in session variable
+if(isset($_SESSION['message'])) {
+    // Display message
+    echo "<div>".$_SESSION['message']."</div>";
+
+    // Clear session variable
+    unset($_SESSION['message']);
+}
+?> 
 
     <div class="row">
         <div class="col-lg-12">
@@ -199,7 +208,7 @@ document.querySelectorAll('.email-input').forEach(container => {
                                     <div class="form-group">
                                         <label for="form_Adress" class="form-label">Email *</label>
                                         <div class="email-input form-group">
-    <input id="form_Adress" type="email"  class="form-control col-md-6 mt-4" name="adress" placeholder="aaron@gmail.com">
+    <input id="form_Adress" type="email"  class="form-control col-md-6 mt-4" name="Adress" placeholder="aaron@gmail.com">
     <svg viewBox="0 0 18 18">
         <path d="M11.5,10.5 C6.4987941,17.5909626 1,3.73719105 11.5,6 C10.4594155,14.5485365 17,13.418278 17,9 C17,4.581722 13.418278,1 9,1 C4.581722,1 1,4.581722 1,9 C1,13.418278 4.581722,17 9,17 C13.418278,17 17,13.42 17,9"></path>
         <polyline points="5 9.25 8 12 13 6"></polyline>
@@ -244,13 +253,13 @@ document.querySelectorAll('.email-input').forEach(container => {
                                         <select id="form_need" name="Durée_mois" class="form-select" required="required" aria-label="Durée">
                                             <option value="" selected disabled>--choix du durée--</option>
                                             <option value="1 mois">1 mois</option>
-                                            <option value="3 mois">3 mois</option>
+                                            <!-- <option value="3 mois">3 mois</option> -->
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-6 mx-auto mt-5">
-                            <input type="submit" class="btn btn-success col-5  btn-send pt-2 btn-block" value="Ajouter">
+                            <div class="col-md-6 col-sm-6 mx-auto text-center mt-5">
+                            <input type="submit" class="btn btn-dark col-5  btn-send p-2  btn-block" value="Ajouter">
                         </div>
                         </div>
                         

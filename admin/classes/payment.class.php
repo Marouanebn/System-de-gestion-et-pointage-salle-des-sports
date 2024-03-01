@@ -40,8 +40,8 @@ class Payment {
                 // Execution
                 $rp->execute([$this->status, $this->Montant, $this->Date_payment, $this->expire_date,$this->Subscribtion_id]);
                 
-                return $cnx->lastInsertId();
-            } catch (\Throwable $th) {
+                $lastInsertedId = $cnx->lastInsertId();
+                return array("lastInsertedId" => $lastInsertedId, "expiryDate" => $this->expire_date);            } catch (\Throwable $th) {
                 // Handle errors
                 echo "Error adding a payment: " . $th->getMessage();
             }

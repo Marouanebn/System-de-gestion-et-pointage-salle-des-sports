@@ -1,3 +1,49 @@
+<?php
+
+$conn = mysqli_connect("localhost", "root", "", "lifestylebd");
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+session_start();
+
+// Check if the user is already logged in, redirect to dashboard if true
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    header("location:admin/pages/Dashboard.php");
+    exit;
+}
+
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get user input
+    $inputUsername = $_POST["username"];
+    $inputPassword = $_POST["password"];
+
+    // Query the database to validate credentials
+    $sql = "SELECT username FROM login WHERE username = ? AND password = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ss", $inputUsername, $inputPassword);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+
+    if (mysqli_stmt_num_rows($stmt) == 1) {
+        // Valid credentials
+        $_SESSION["loggedin"] = true;
+        $_SESSION["username"] = $inputUsername;
+        header("location:admin/pages/Dashboard.php");
+    } else {
+        // Invalid credentials
+        echo "Invalid username or password.";
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,17 +119,17 @@ background: linear-gradient(80deg, rgba(0,0,0,1) 0%, rgba(119,121,9,1) 100%);   
                     <div class="text-center mb-5">
                       <h1 class="customHeading h3 text-uppercase">Login</h1>
                     </div>
-                    <form onsubmit="event.preventDefault();submitForm()">
+                    <form action="index1.php"  method="post" >
                       <div class="custom-form-group">
                         <label class="text-uppercase" for="username">Username</label>
-                        <input type="text" id="username" class="pb-1" /><span class="pb-1"><i class="fas fa-user"></i></span>
+                        <input type="text" id="username"  name="username" class="pb-1" /><span class="pb-1"><i class="fas fa-user"></i></span>
                       </div>
                       <div class="custom-form-group mt-3">
                         <label class="text-uppercase" for="password">Password</label>
-                        <input type="password" id="password" class="pb-1" /><span class="pb-1"><i id="showCursor" class="fas fa-eye-slash" onclick="showPassword(event)"></i></span>
+                        <input type="password" id="password" name="password" class="pb-1" /><span class="pb-1"><i id="showCursor" class="fas fa-eye-slash" onclick="showPassword(event)"></i></span>
                       </div>
                       <div class="mt-5">
-                        <button class="w-100 p-2 d-block custom-btn" >Login</button>
+                        <button type="submit" class="w-100 p-2 d-block custom-btn" >Login</button>
                       </div>
                     </form>
                   </div>

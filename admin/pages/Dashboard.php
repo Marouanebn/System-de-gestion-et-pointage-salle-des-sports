@@ -1,4 +1,6 @@
 <?php 
+include_once"../includes/loginchecks.php";
+
 include_once"../classes/connexion.class.php";
 include_once "../classes/subcribtion.class.php";
 include_once"../classes/payment.class.php";
@@ -114,7 +116,7 @@ foreach ($rpmontant as $data) {?>
 
 
                 <div class="card-block">
-                    <h6 class="m-b-20">montant total en <?= $data['mois']?></h6>
+                    <h6 class="m-b-20">montant total en <?=$data['mois']?></h6>
                     <h2 class="text-right"><i class='bx bx-dollar-circle' style='color:#ffffff f-left'  ></i><span> <?php ?><?= $data['Montant'] ;}?> DH</span></h2>
                 </div>
             </div>
@@ -153,8 +155,8 @@ foreach ($rpmontant as $data) {?>
     datasets: [{
       label: 'My First Dataset',
       data:<?php echo json_encode($number)?> ,
-      backgroundColor: [ 'rgb(54, 162, 235)', 'rgb(255, 99, 132)','rgb(255, 205, 86)'],
-      hoverOffset: 4
+      backgroundColor: [  'rgb(54, 162, 235)','rgb(255, 99, 132)',,'rgb(255, 205, 86)'],
+      hoverOffset: 20
     }]
   };
 
@@ -169,7 +171,7 @@ foreach ($rpmontant as $data) {?>
 <script id="subscription-analyse">
   const ctj = document.getElementById('myChartsubsciption');
 
-  const labels = <?php echo json_encode($mois);json_encode($mois);?>;
+  const labels = <?php echo json_encode($mois);?>;
 const datasub = {
   labels: labels,
   datasets: [{

@@ -1,5 +1,6 @@
 <?php 
 include_once "../classes/member.class.php";
+include_once"../includes/loginchecks.php";
 
 include_once "../includes/sidebar.php";
 
@@ -77,13 +78,13 @@ $sub = member::find($_GET['id'], "subscription");
                                         <select id="form_need" name="Durée_mois" class="form-select" required="required" aria-label="Durée">
                                             <option value="<?= $sub['Durée_mois']?>" ><?= $sub['Durée_mois']?></option>
                                             <option value="1 mois">1 mois</option>
-                                            <option value="3 mois">3 mois</option>
+                                            <!-- <option value="3 mois">3 mois</option> -->
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-6 mx-auto mt-5">
-                            <input type="submit" class="btn btn-success col-5  btn-send pt-2 btn-block" value="Modifier member">
+                            <div class="col-md-6 col-sm-6 mx-auto  text-center mt-5">
+                            <input type="submit" class="btn btn-dark col-5  btn-send pt-2 btn-block" value="Modifier member">
                         </div>
                         </div>
                         

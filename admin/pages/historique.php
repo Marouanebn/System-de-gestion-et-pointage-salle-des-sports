@@ -1,5 +1,7 @@
 
 <?php 
+include_once"../includes/loginchecks.php";
+
 include_once"../includes/sidebar.php";
 
 

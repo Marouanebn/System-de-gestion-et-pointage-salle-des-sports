@@ -10,13 +10,14 @@ include_once '../classes/historique.class.php';
 
 
 extract($_POST);
+print_r($_POST);
 try {
     $member = new member($Nom_complet, $Cin, $Adress, $Date_naissance, $Tel, $Genre);
-  $member_nom = $member->ModifierMembre($id);
+  $member_nom = $member->ModifierMembre($member_id);
 
     if ($member) {
         $subcribtion = new subcribtion($Date_inscription, $Durée_mois, $member_id);
-        $Subcribtion_id = $subcribtion->Modifiersubscription($id);
+        $Subcribtion_id = $subcribtion->Modifiersubscription($member_id);
 
        
             $historique = new historique("modifer","modifier $Nom_complet");

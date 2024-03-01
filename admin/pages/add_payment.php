@@ -1,5 +1,7 @@
 <?php 
 // include_once"includes/sidebar.php";
+include_once"../includes/loginchecks.php";
+
 include_once '../classes/payment.class.php';
 $payment= Payment::AfficherNonPayée();
 // echo print_r($payment);
@@ -40,6 +42,7 @@ include_once "../includes/sidebar.php";
                   <th>Action</th>
                 </tr>
               </thead>
+              <tbody>
               <?php foreach ($payment as $v) {
                   if($v['status'] == "payeé") {
                     $color = "success";
@@ -47,17 +50,16 @@ include_once "../includes/sidebar.php";
                     $color = "danger";
                   }
               ?>
-              <tbody>
                 <tr>
                   <td><?=$v['Nom_complet']?></td>
                   <td><?=$v['Date_inscription']?></td>
                   <td><?=$v['Durée_mois']?></td>
                   <td><span class="badge bg-<?=$color?> p-3"><?=$v['status']?></span></td>
                   <td><?=$v['Date_payment']?></td>
-                  <td> <a href="../actions/effectuerpayment.php?id=<?=$v['Payment_id']?>&Nom_complet=<?=$v['Nom_complet']?>&email=<?=$v['email']?>" class="btn btn-success">Payer</a></td>
+                  <td> <a href="../actions/effectuerpayment.php?id=<?=$v['Payment_id']?>&Nom_complet=<?=$v['Nom_complet']?>&email=<?=$v['email']?>" class="btn btn-primary">Payer</a></td>
+                  <?php }?>
                 </tr>
               </tbody>
-              <?php }?>
             </table>
           </div>
         </div>

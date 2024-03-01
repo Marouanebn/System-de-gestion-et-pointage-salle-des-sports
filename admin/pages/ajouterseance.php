@@ -1,4 +1,5 @@
 <?php
+include_once"../includes/loginchecks.php";
 include_once "../includes/sidebar.php";
 include_once "../classes/member.class.php";
 include_once "../classes/coach.class.php";
@@ -76,8 +77,8 @@ $coach = coach::afficher_coach();
                                 </div>
                             </div>
                             
-                            <div class=" col-sm-6 mx-auto mt-5">
-                            <input type="submit" class="btn btn-success col-5  btn-send pt-2 btn-block" value="Ajouter">
+                            <div class=" col-sm-6 mx-auto text-center mt-5">
+                            <input type="submit" class="btn btn-dark col-5  btn-send p-2 btn-block" value="Ajouter">
                         </div>
                         </div>
                         
@@ -88,5 +89,41 @@ $coach = coach::afficher_coach();
     </div>
 </div>
  </form>
+ <form id="contact-form" action="../actions/ajoutercoach.php" method="post" role="form">
+        <div class="container">
+            <div class="text-center mt-5">
+                <h1>Ajouter un coach </h1>
+            </div>
+     
+        
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mt-2 mx-auto p-4 bg-light" >
+                        <div class="card-body bg-light">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12 mt-4">
+                                            <div class="form-group">
+                                                <label for="form_name" class="form-label">Nom Complet*</label>
+                                                
+                                                <input id="form_name" type="text" name="Nom_complet" class="form-control " placeholder="Entrer le nom complet et correct*" required="required" aria-label="Nom complet">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <div class="form-group">
+                                                <label for="form_Cin" class="form-label">Cin *</label>
+                                                <input id="form_Cin" type="text" name="Cin" class="form-control" placeholder="Ex : BK5552551 *" required="required" aria-label="Cin">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <div class="form-group">
+                                                <label for="form_Cin" class="form-label">tel *</label>
+                                                <input id="form_Cin" type="number" name="tel" class="form-control" placeholder="Ex : BK5552551 *" required="required" aria-label="Cin">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 mx-auto mt-5 text-center justify-content-center">
+                                          <input type="submit" class="btn btn-dark col-5 btn-send pt-2 btn-block" value="Ajouter">
+                                        </div>
+         </form>
 </body>
 </html>

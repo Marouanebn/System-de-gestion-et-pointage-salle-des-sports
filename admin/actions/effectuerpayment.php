@@ -11,8 +11,8 @@ try {
     //effectuer payment && return expired_date
     $expired_date=Payment::effectuer_payment($id);
     //generer le code qr du member qui a payer
-    $info = $Nom_complet."<br>".$expired_date."" ;
-    $qrcode = new qrcodegenerator($Nom_complet,$info,$payment_id);
+    $info = "Nom Complet : ".$Nom_complet."Votre abonnement expire Le :".$expired_date."" ;
+    $qrcode = new qrcodegenerator($Nom_complet,$info,$id);
     $qr_code=$qrcode ->qr_payment();
     //envoyer email a member
     $send_mail=member::envoyer_mail($qr_code,$email,$Nom_complet,"renew");

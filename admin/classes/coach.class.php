@@ -20,7 +20,7 @@ function ajouter_coach(){
     try {
         $cnx = connexion::connecter_db();
         
-        $rp = $cnx->prepare("insert into coach(Nom_complet,Cin,Tel) values(?,?,?,?)");
+        $rp = $cnx->prepare("insert into coach(Nom_complet,Cin,Tel) values(?,?,?)");
         
         $rp ->execute([$this->coach_nom,$this->cin,$this->tel]);
         
@@ -54,6 +54,26 @@ static function ajouter_seance($member_id,$coach_id,$num_seance,$montant,$date_c
 
 
 }
+// static function modifierseance($id,$){
+
+
+//         try {
+//                //connection db
+//                $cnx= connexion::connecter_db();
+//                $rp= $cnx->prepare("update coaching_seance set Nom_complet=?,Cin=?, Adress=?, Date_naissance=?, Tel=?, Genre=? where Member_id=?");
+//                $rp->execute([$id]);
+//                $member = $rp->fetch();
+       
+             
+             
+       
+//         } catch (\Throwable $th) {
+//             echo "Erreur de modification d'un member ".$th->getMessage();
+//         }
+        
+//         }
+
+// }
 
 static function afficher_coach(){
 
@@ -67,10 +87,44 @@ static function afficher_coach(){
         //throw $th;
 
     echo "error adding seance".$th->getMessage() ;
-    }
+    }}
     
+    static function afficher_coaching_detail(){
+
+        try {
+            //code...
+            $cnx = connexion::connecter_db();
+        $rp = $cnx -> prepare("SELECT cs.id,  m.Nom_complet as 'member nom', c.Nom_complet as 'coach nom' , cs.num_seance as 'seance plannifier', cs.montant,cs.valid_seance as 'seance faite' from coaching_seance cs JOIN member m on cs.member_id = m.Member_id JOIN coach c on cs.coach_id = c.coach_id;");
+        $rp -> execute ([]);
+        return $rp->fetchAll();
+        } catch (\Throwable $th) {
+            //throw $th;
+    
+        echo "error adding seance".$th->getMessage() ;
+        }
+
+        }
+        
+    static function effectuer_seance($id){
+
+        try {
+            //code...
+            $cnx = connexion::connecter_db();
+        $rp = $cnx -> prepare("UPDATE coaching_seance
+        SET valid_seance = valid_seance + 1
+        WHERE id = ?;
+        ");
+        $rp -> execute ([$id]);
+        } catch (\Throwable $th) {
+            //throw $th;
+    
+        echo "error adding seance".$th->getMessage() ;
+        }
+
+    }
+
 }
-}
+
 
 
 

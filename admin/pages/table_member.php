@@ -1,12 +1,22 @@
 <?php 
+include_once"../includes/loginchecks.php";
+
 include_once "../includes/sidebar.php";
 include_once "../classes/Member.class.php";
 $membres = Member::allMember();
 ?>
-
+<style>   div.dataTables_wrapper div.dataTables_length label {
+    font-weight: normal;
+    text-align: left;
+    margin: 10px;
+    white-space: nowrap;
+}</style>
 <main>
     <!-- Bootstrap Tables -->
     <div class="container mt-4">
+    <div class="text-center mt-5">
+        <h1>Table des members</h1>
+    </div>
         <div class="card mb-4">
             <div class="card-body">
                 <!-- Grid row -->
@@ -24,12 +34,12 @@ $membres = Member::allMember();
                     <thead>
                         <tr>
                             <th scope="col">id</th>
-                            <th scope="col">nom complet</th>
-                            <th scope="col">cin</th>
-                            <th scope="col">adress</th>
-                            <th scope="col">date naissance</th>
-                            <th scope="col">TEL</th>
-                            <th scope="col">genre</th>
+                            <th scope="col">Nom complet</th>
+                            <th scope="col">Cin</th>
+                            <th scope="col">Adress</th>
+                            <th scope="col">Date naissance</th>
+                            <th scope="col">Tel</th>
+                            <th scope="col">Genre</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -46,7 +56,7 @@ $membres = Member::allMember();
                             
                             <td>
                             <a href="../actions/supprimer.php?id=<?=$v['Member_id']?>" class="btn btn-danger" >Suprimmer</a>                              
-                              <a href="modifier_member.php?id=<?=$v['Member_id']?>" class="btn btn-warning" >Modifier</a>
+                              <a href="modifier_member.php?id=<?=$v['Member_id']?>" class="btn btn-primary" >Modifier</a>
                             </td>
                         </tr>
                         <?php }?>
